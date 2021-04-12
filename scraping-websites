@@ -1,0 +1,39 @@
+import $ivy.`org.jsoup:jsoup:1.13.1`, org.jsoup._
+
+Jsoup.
+
+Jsoup.connect.
+
+Jsoup.connect("http://mendix.com").
+
+Jsoup.connect("http://mendix.com").get()
+
+val doc = Jsoup.connect("http://mendix.com").get()
+
+doc.
+
+http://docs.mendix.com/refguide/performance-best-practices
+
+val doc = Jsoup.connect("http://docs.mendix.com/refguide/performance-best-practices").get()
+
+Inspect h2
+
+val toc = doc.select("h2").asScala
+
+import collection.JavaConverters._
+
+val toc = doc.select("h2").asScala
+
+for (item <- toc) yield (item.attr("id"))
+
+for (item <- toc) yield (item.text)
+
+for (item <- toc) yield (item.attr("id"), item.text)
+
+Inspect content
+
+val content = doc.select("p")
+
+val content = doc.select("p").
+
+val content = doc.select("p").text
