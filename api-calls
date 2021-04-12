@@ -1,0 +1,46 @@
+Step - Create a new token
+	https://github.com/settings/tokens
+
+Step - Store token in disk
+	import java.io
+	import java.io.File
+	
+	val file = new File("github-token.txt")
+	file.createNewFile();
+	
+	import java.io.PrintWriter
+	new PrintWriter("github-token.txt") { write("YOURTOKEN"); close }
+
+Step - Read token from disk
+	val token = os.read(os.home / "github-token.txt")
+	val token = os.read(os.home / "github-token.txt").trim()
+
+Step - Introduce requests-scala
+	requests.
+	https://github.com/lihaoyi/requests-scala
+		Bundled in ammonite
+		
+Step - POST request
+	https://docs.github.com/en/rest/reference/issues#create-an-issue
+	
+	val url = "https://api.github.com/repos/dogancakmak/github-api-experiment-with-scala/issues"
+	requests.post(url , data = ujson.Obj("title" -> "Oh no, we have a new issue!"), headers = Map("Authorization" -> s"token $token") )
+	
+	https://www.lihaoyi.com/post/uJsonfastflexibleandintuitiveJSONforScala.html
+	
+	val url = "https://api.github.com/repos/dogancakmak/github-api-experiment-with-scala/issues/1/comments"
+	requests.post( url, data = ujson.Obj("body" -> "Awesome!"), headers = Map("Authorization" -> s"token $token") )
+	
+Step - Retrieving issues
+	https://docs.github.com/en/rest/reference/issues#list-issues-for-a-repository
+	
+	val url = "https://api.github.com/repos/dogancakmak/github-api-experiment-with-scala/issues"
+	val response = requests.get( url, params = Map("state" -> "all"), headers = Map("Authorization" -> s"token $token") )
+	
+	val parsed = ujson.read(response)
+	This will give us ugly json
+	
+	Let's format it!
+	println(parsed.render(indent = 2))
+	
+https://api.github.com/repos/dogancakmak/github-api-experiment-with-scala/issues
